@@ -19,4 +19,17 @@ public class Person {
     public List<Person> getKnows(){
         return this.knows;
     }
+    public String getName(){
+        return this.name;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
