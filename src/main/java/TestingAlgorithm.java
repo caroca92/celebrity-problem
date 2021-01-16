@@ -1,32 +1,28 @@
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
-public class Algorithm {
+public class TestingAlgorithm {
+    @Spy
+    Algorithm algorithm;
 
-    public static void main(String[] args) {
-        //In a team of N people, a celebrity is
-        // known by everyone but he/she doesn't know anybody
-        Algorithm algorithm = new Algorithm();
-
-        algorithm.findingFamousPeople(algorithm.buildingPeopleCase1());
-        algorithm.findingFamousPeople(algorithm.buildingPeopleCase2());
-
-    }
-    public void findingFamousPeople(List<Person> team){
-        //operations
-        Optional<Person> celebrity = team
-                .stream()
-                .filter(person -> person.getKnows() == null)
-                .findFirst();
-
-        System.out.println("Most famous: " + (celebrity.isPresent() ? celebrity.get() : "No celebrity are here"));
+    @Before
+    public void setUp(){
+        MockitoAnnotations.initMocks(this);
     }
 
-    //Case 1: Ana knows no one people and she is famous
-    public List<Person> buildingPeopleCase1(){
-        //Assumptions
+
+    @Test
+    public void testFindingFamousPeopleCase1(){
         Person a = new Person("Ana");
         Person b = new Person("Pedro");
         Person c = new Person("Esteban");
@@ -44,10 +40,15 @@ public class Algorithm {
         c.setKnows(cKnows);
         d.setKnows(dKnows);
 
-        return new ArrayList<>(Arrays.asList(a,b,c,d));
+        List<Person> people = new ArrayList<>(Arrays.asList(a,b,c,d));
+
+        String famous = algorithm.findingFamousPeople(people);
+
+        Assert.assertEquals("Person{name='Ana'}", famous);
     }
-    //Case 2: No one is famous
-    public List<Person> buildingPeopleCase2(){
+
+    @Test
+    public void testFindingFamousPeopleCase2(){
         //Assumptions
         Person a = new Person("Ana");
         Person b = new Person("Pedro");
@@ -66,6 +67,11 @@ public class Algorithm {
         c.setKnows(cKnows);
         d.setKnows(dKnows);
 
-        return new ArrayList<>(Arrays.asList(a,b,c,d));
+        List<Person> people = new ArrayList<>(Arrays.asList(a,b,c,d));
+
+        String famous = algorithm.findingFamousPeople(people);
+
+        Assert.assertEquals("No celebrity are here", famous);
     }
+
 }
