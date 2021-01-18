@@ -7,12 +7,21 @@ public class Algorithm {
     // known by everyone but he/she doesn't know anybody
     public String findingFamousPeople(List<Person> team){
         //operations
-        Optional<Person> celebrity = team
+        Optional<Person> candidateToBeCelebrity = team
                 .stream()
-                .filter(person -> person.getKnows() == null)
+                .filter(person -> person.getPeopleThatKnow() == null || person.getPeopleThatKnow().isEmpty())
                 .findFirst();
 
-        return (celebrity.isPresent() ? celebrity.get().toString() : "No celebrity are here");
+        Boolean isCandidateToBeCelebrityACelebrity = Boolean.FALSE;
+
+        if(candidateToBeCelebrity.isPresent()){
+            isCandidateToBeCelebrityACelebrity = team
+                    .stream()
+                    .filter(person -> person.getPeopleThatKnow() != null)
+                    .allMatch(person -> person.getPeopleThatKnow().contains(candidateToBeCelebrity.get()));
+        }
+
+        return (isCandidateToBeCelebrityACelebrity ? candidateToBeCelebrity.get().toString() : "No celebrity is here");
     }
 
 }

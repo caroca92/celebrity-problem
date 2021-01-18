@@ -2,28 +2,22 @@ import java.util.List;
 
 public class Person {
     private String name;
-    private List<Person> knows;
+    private List<Person> peopleThatKnow;
 
     public Person(String name){
         this(name, null);
     }
 
     public Person(String name, List<Person> knows){
-        this.knows = knows;
+        this.peopleThatKnow = knows;
         this.name = name;
     }
 
-    public void setKnows(List<Person> knows){
-        this.knows = knows;
+    public void setPeopleThatKnow(List<Person> peopleThatKnow){
+        this.peopleThatKnow = peopleThatKnow;
     }
-    public List<Person> getKnows(){
-        return this.knows;
-    }
-    public String getName(){
-        return this.name;
-    }
-    public void setName(String name){
-        this.name = name;
+    public List<Person> getPeopleThatKnow(){
+        return this.peopleThatKnow;
     }
 
     @Override
