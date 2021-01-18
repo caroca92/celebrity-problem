@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Algorithm {
 
@@ -7,28 +8,21 @@ public class Algorithm {
     // known by everyone but he/she doesn't know anybody
     public String findingFamousPeople(List<Person> team){
         //operations
-        Long justOneFamousAllowed = team
+        List<Person> justOneFamousAllowed = team
                 .stream()
                 .filter(person -> person.getPeopleThatKnow() == null || person.getPeopleThatKnow().isEmpty())
-                .count();
-        if(justOneFamousAllowed.intValue() > 1){
-            return "No celebrity is here";
-        }
-        Optional<Person> candidateToBeCelebrity = team
-                .stream()
-                .filter(person -> person.getPeopleThatKnow() == null || person.getPeopleThatKnow().isEmpty())
-                .findFirst();
-
+                .collect(Collectors.toList());
         Boolean isCandidateToBeCelebrityACelebrity = Boolean.FALSE;
-
-        if(candidateToBeCelebrity.isPresent()){
+        if(justOneFamousAllowed.size() > 1 || justOneFamousAllowed.size() < 1){
+            return "No celebrity is here";
+        }else {
             isCandidateToBeCelebrityACelebrity = team
                     .stream()
                     .filter(person -> person.getPeopleThatKnow() != null)
-                    .allMatch(person -> person.getPeopleThatKnow().contains(candidateToBeCelebrity.get()));
+                    .allMatch(person -> person.getPeopleThatKnow().contains(justOneFamousAllowed.get(0)));
         }
 
-        return (isCandidateToBeCelebrityACelebrity ? candidateToBeCelebrity.get().toString() : "No celebrity is here");
+        return (isCandidateToBeCelebrityACelebrity ? justOneFamousAllowed.get(0).toString() : "No celebrity is here");
     }
 
 }
