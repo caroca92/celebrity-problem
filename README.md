@@ -11,3 +11,5 @@ Case 1: Ana knows no one people, and everyone know her, so that she is a celebri
 Case 2: One person doesn't know Ana and Ana doesn't know anybody so that, No one is famous
 
 Case 3: All people know some people, so that, no one is famous
+
+Case 4: Two people don't know anybody but others know them, so that No one is famous

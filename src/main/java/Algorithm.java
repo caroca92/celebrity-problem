@@ -7,6 +7,13 @@ public class Algorithm {
     // known by everyone but he/she doesn't know anybody
     public String findingFamousPeople(List<Person> team){
         //operations
+        Long justOneFamousAllowed = team
+                .stream()
+                .filter(person -> person.getPeopleThatKnow() == null || person.getPeopleThatKnow().isEmpty())
+                .count();
+        if(justOneFamousAllowed.intValue() > 1){
+            return "No celebrity is here";
+        }
         Optional<Person> candidateToBeCelebrity = team
                 .stream()
                 .filter(person -> person.getPeopleThatKnow() == null || person.getPeopleThatKnow().isEmpty())

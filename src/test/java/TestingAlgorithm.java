@@ -96,4 +96,28 @@ public class TestingAlgorithm {
 
         Assert.assertEquals("No celebrity is here", famous);
     }
+    @Test
+    public void testFindingFamousPeopleCase4(){
+        //Assumptions
+        Person a = new Person("Ana");
+        Person b = new Person("Pedro");
+        Person c = new Person("Esteban");
+        Person d = new Person("Jorge");
+
+        //List of people each one knows
+        List<Person> cKnows = new ArrayList<>(Arrays.asList(a,b,d));
+        List<Person> dKnows = new ArrayList<>(Arrays.asList(a,b,d));
+
+        //Setting the people who everyone know
+        a.setPeopleThatKnow(null);
+        b.setPeopleThatKnow(null);
+        c.setPeopleThatKnow(cKnows);
+        d.setPeopleThatKnow(dKnows);
+
+        List<Person> people = new ArrayList<>(Arrays.asList(a,b,c,d));
+
+        String famous = algorithm.findingFamousPeople(people);
+
+        Assert.assertEquals("No celebrity is here", famous);
+    }
 }
