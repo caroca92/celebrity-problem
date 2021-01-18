@@ -18,7 +18,7 @@ public class Algorithm {
         }else {
             isCandidateToBeCelebrityACelebrity = team
                     .stream()
-                    .filter(person -> person.getPeopleThatKnow() != null)
+                    .filter(person -> person != justOneFamousAllowed.get(0))
                     .allMatch(person -> person.getPeopleThatKnow().contains(justOneFamousAllowed.get(0)));
         }
 
